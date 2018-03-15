@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <math.h>
+#include <string.h>
+#include <stdlib.h>
+
+char str1[]="abcdefg";
+char str2[]="acdefg";
+char str3[]="acdefgh";
+char str4[]="acdefghi";
+char str5[]="bcdefg";
+char str6[]="abcdef";
+char str7[]="abccdefg";
+char str8[]="abccdeeg";
+char str9[]="abccdeegg";
+#define ABS(x) ((x) < 0 ? -(x): (x))
+
+void
+compare(char *str1, char *str2)
+{
+  char *ptr1, *ptr2;
+  int delta = 0;
+
+  if (ABS((int)strlen(str1) - (int) strlen(str2)) >=2) {
+      printf("it is more than one edit away : %s, %s\n", str1, str2);
+      return;
+  }
+
+  if ((int)strlen(str1) > (int) strlen(str2)) {
+       ptr1 = str1; ptr2 = str2;
+  }
+  else {
+       ptr1 = str2; ptr2 = str1;
+  }
+
+  for (; *ptr1!= 0 && *ptr2!=0;) {
+      if (*ptr1 != *ptr2) {
+          delta++;
+          if (delta > 1) {
+                printf("it is more than one edit away : %s, %s\n", str1, str2);
+                printf("%c, %c\n", *ptr1, *ptr2);
+                return;
+          }
+          ptr1++;
+      }
+      else {
+         ptr1++; ptr2++;
+      }
+  }
+}
+
+int
+main()
+{
+   compare(str1, str2);
+   compare(str1, str3);
+   compare(str1, str4);
+   compare(str1, str5);
+   compare(str1, str6);
+   compare(str1, str7);
+   compare(str1, str8);
+   compare(str1, str9);
+}
